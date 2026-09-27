@@ -1,0 +1,35 @@
+model:
+  name: "Qwen/Qwen2.5-0.5B-Instruct"
+  torch_dtype: "bfloat16"
+
+training:
+  output_dir: "outputs/checkpoints"
+
+  learning_rate: 0.000001
+  num_train_epochs: 1
+
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 4
+
+  max_prompt_length: 256
+  max_completion_length: 128
+
+  num_generations: 4
+
+  logging_steps: 1
+  save_steps: 50
+
+  gradient_checkpointing: true
+
+  bf16: true
+  fp16: false
+
+  seed: 42
+
+data:
+  train_file: "../python-coding-agent-data/python/syntax/beginner.jsonl"
+
+reward:
+  exact_match: 1.0
+  syntax_valid: 1.0
+  contains_code: 0.25
